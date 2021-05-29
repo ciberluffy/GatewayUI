@@ -1,0 +1,34 @@
+<div class="title-datatable">
+    <h1>Device</h1>
+    <button (click)="AddDevice()" class="gateway-button">Add</button>
+</div>
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+    <thead>
+      <tr>
+        <th>UID</th>
+        <th>Vendor</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Gateway</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let device of devices">
+        <td>{{ device.uid }}</td>
+        <td>{{ device.vendor }}</td>
+        <td>{{ device.created | date }}</td>
+        <td>
+            <span *ngIf="device.online" class="material-icons bc-green">
+                check_circle_outline
+            </span>
+            <span *ngIf="!device.online" class="material-icons">
+                highlight_off
+            </span>
+        </td>
+        <td>{{device.gateway?.name ?? '-'}}</td>
+        <td><button (click)="Details(device.uid)" class="gateway-button">Details</button></td>
+      </tr>
+    </tbody>
+  </table>

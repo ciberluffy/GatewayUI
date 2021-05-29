@@ -1,0 +1,85 @@
+<h1>Create Gateway</h1>
+<form [formGroup]="gatewayForm">
+  <div class="form-control">
+    <label>
+      Name:
+      <input type="text" (change)="changeDo()" formControlName="name">
+      <div class="form-control-feedback invalid-feedback" *ngIf="gatewayForm.controls.name.errors && changes">
+        <p *ngIf="gatewayForm.controls.name.errors.required" class="form-control-alert">Name is required</p>
+      </div>
+    </label>
+  </div>
+  <div class="form-control">
+    <label>
+      IPv4 Address:
+      <input type="ipaddress" (change)="changeDo()" formControlName="address" [ngClass]="{
+          'is-invalid': gatewayForm.controls.address.invalid && (gatewayForm.controls.address.dirty || gatewayForm.controls.address.touched),
+          'is-valid': gatewayForm.controls.address.valid && (gatewayForm.controls.address.dirty || gatewayForm.controls.address.touched)
+        }"
+      >
+      <div class="form-control-feedback invalid-feedback" *ngIf="gatewayForm.controls.address.errors && changes">
+        <p *ngIf="gatewayForm.controls.address.errors.required" class="form-control-alert">IP Address is required</p>
+        <p *ngIf="gatewayForm.controls.address.errors.pattern" class="form-control-alert">IP Adddress is invalid</p>
+      </div>
+    </label>
+  </div>
+
+  <div class="datatables">
+    <!-- tabla 1 -->
+    <div class="md-50">
+      <h2>Devices to Add</h2>
+      <table #table1 datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger1" class="row-border hover">
+        <thead>
+          <tr>
+            <th>UID</th>
+            <th>Vendor</th>
+            <th>Date</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let device of list1">
+            <td>{{ device.uid }}</td>
+            <td>{{ device.vendor }}</td>
+            <td>{{ device.created | date }}</td>
+            <td><button (click)="Details(device.uid)" class="gateway-button">Details</button></td>
+            <td>
+              <span (click)="moveToList2(device.uid)" class="material-icons">chevron_right</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- tabla2 -->
+    <div class="md-50">
+      <h2>Lonely Devices</h2>
+      <table #table2 datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="row-border hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>UID</th>
+            <th>Vendor</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let device of list2">
+            <td>
+              <span [class.c-gray]="list1.length >= 10" (click)="moveToList1(device.uid)" class="material-icons">chevron_left</span>
+            </td>
+            <td>{{ device.uid }}</td>
+            <td>{{ device.vendor }}</td>
+            <td>{{ device.created | date }}</td>
+            <td><button (click)="Details(device.uid)" class="gateway-button">Details</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <button type="submit" (click)="onSubmit()" class="gateway-button">Save</button>
+  <button type="submit" (click)="onBack()" class="gateway-button ml-3">Back</button>
+</form>
