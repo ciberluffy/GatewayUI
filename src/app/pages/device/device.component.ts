@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Device } from '../../models/device';
 import { DeviceService } from 'src/app/services/device.service';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './device.component.html',
@@ -14,7 +15,7 @@ export class DeviceComponent implements OnDestroy, OnInit {
 
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private deviceService: DeviceService) { }
+  constructor(private deviceService: DeviceService, private router: Router) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -38,7 +39,7 @@ export class DeviceComponent implements OnDestroy, OnInit {
   }
 
   AddDevice(): void {
-    console.log("adding gateway");
+    this.router.navigateByUrl('device/create');
   }
 
 }

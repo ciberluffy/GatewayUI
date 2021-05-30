@@ -1,6 +1,6 @@
 <div class="title-datatable">
     <h1>Gateway</h1>
-    <button (click)="AddGateway()" class="gateway-button">Add</button>
+    <button (click)="AddGateway()" class="gateway-button top-button">Add</button>
 </div>
 
 <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
@@ -17,7 +17,18 @@
       <td>{{ gateway.name }}</td>
       <td>{{ gateway.address }}</td>
       <td>{{ gateway.devices.length }}</td>
-      <td><button (click)="Details(gateway.usn)" class="gateway-button">Details</button></td>
+      <td class="options-td">
+        <button (click)="Details(gateway.usn)" class="gateway-button options-button">
+          <span class="material-icons">
+            remove_red_eye
+          </span>
+        </button>
+        <button (click)="Details(gateway.usn)" class="gateway-button options-button">
+          <span class="material-icons">
+            edit
+          </span>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

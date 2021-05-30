@@ -217,12 +217,21 @@
 
 ::ng-deep .gateway-button {
   height: 30px;
-  width: 80px;
   border: 1px solid blue;
   background-color: white;
   color: blue;
   border-radius: 5px;
   cursor: pointer;
+}
+
+::ng-deep .gateway-button.top-button {
+  width: 80px;
+  margin-bottom: 1.2rem;
+  margin-left: 1.2rem;
+}
+
+::ng-deep .gateway-button.options-button {
+  width: 37px;
 }
 
 ::ng-deep .gateway-button:hover {
@@ -232,6 +241,7 @@
 ::ng-deep .title-datatable {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: baseline;
 }
@@ -259,6 +269,12 @@
 
 ::ng-deep .bc-green {
   color: green;
+}
+
+::ng-deep .options-td {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
   /* Responsive Styles */

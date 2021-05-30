@@ -1,4 +1,12 @@
-<h1>Create Gateway</h1>
+<div class="title-datatable">
+  <h1>Create Gateway</h1>
+
+  <div>
+    <button type="submit" (click)="onSubmit()" class="gateway-button top-button">Save</button>
+    <button type="submit" (click)="onBack()" class="gateway-button top-button ml-3">Back</button>
+  </div>
+</div>
+
 <form [formGroup]="gatewayForm">
   <div class="form-control">
     <label>
@@ -26,7 +34,7 @@
 
   <div class="datatables">
     <!-- tabla 1 -->
-    <div class="md-50">
+    <div class="md-50 left">
       <h2>Devices to Add</h2>
       <table #table1 datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger1" class="row-border hover">
         <thead>
@@ -35,7 +43,6 @@
             <th>Vendor</th>
             <th>Date</th>
             <th></th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -43,9 +50,8 @@
             <td>{{ device.uid }}</td>
             <td>{{ device.vendor }}</td>
             <td>{{ device.created | date }}</td>
-            <td><button (click)="Details(device.uid)" class="gateway-button">Details</button></td>
             <td>
-              <span (click)="moveToList2(device.uid)" class="material-icons">chevron_right</span>
+              <span (click)="moveToList2(device.uid)" class="material-icons bordered">chevron_right</span>
             </td>
           </tr>
         </tbody>
@@ -53,7 +59,7 @@
     </div>
 
     <!-- tabla2 -->
-    <div class="md-50">
+    <div class="md-50 right">
       <h2>Lonely Devices</h2>
       <table #table2 datatable [dtOptions]="dtOptions2" [dtTrigger]="dtTrigger2" class="row-border hover">
         <thead>
@@ -62,24 +68,19 @@
             <th>UID</th>
             <th>Vendor</th>
             <th>Date</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let device of list2">
             <td>
-              <span [class.c-gray]="list1.length >= 10" (click)="moveToList1(device.uid)" class="material-icons">chevron_left</span>
+              <span [class.c-gray]="list1.length >= 10" (click)="moveToList1(device.uid)" class="material-icons bordered">chevron_left</span>
             </td>
             <td>{{ device.uid }}</td>
             <td>{{ device.vendor }}</td>
             <td>{{ device.created | date }}</td>
-            <td><button (click)="Details(device.uid)" class="gateway-button">Details</button></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-
-  <button type="submit" (click)="onSubmit()" class="gateway-button">Save</button>
-  <button type="submit" (click)="onBack()" class="gateway-button ml-3">Back</button>
 </form>
