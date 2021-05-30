@@ -11,7 +11,8 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { CreateDeviceComponent } from '../pages/create-device/create-device.component';
 import { DetailGatewayComponent } from '../pages/detail-gateway/detail-gateway.component';
 import { DetailDeviceComponent } from '../pages/detail-device/detail-device.component';
-
+import { UpdateGatewayComponent } from '../pages/update-gateway/update-gateway.component';
+import { UpdateDeviceComponent } from '../pages/update-device/update-device.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { DetailDeviceComponent } from '../pages/detail-device/detail-device.comp
     CreateGatewayComponent,
     CreateDeviceComponent,
     DetailGatewayComponent,
-    DetailDeviceComponent
+    DetailDeviceComponent,
+    UpdateGatewayComponent,
+    UpdateDeviceComponent
   ],
   imports: [
     CommonModule,

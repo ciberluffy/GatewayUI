@@ -1,0 +1,58 @@
+span.material-icons {
+    color: blue;
+    cursor: pointer;
+    background-color: white;
+  }
+  span.material-icons:hover {
+    background-color: #f6f6f6;
+  }
+  .bordered {
+    border: 1px solid;
+    border-radius: 50px;
+  }
+  
+  .c-gray {
+    color: gray!important;
+  }
+  
+  .md-50 {
+    width: 50%;
+    vertical-align: top;
+    display: inline-block;;
+  }
+  
+  .ml-3 {
+    margin-left: 1.2rem;
+  }
+  
+  .datatables {
+      margin-top: 1.2rem;
+      margin-bottom: 1.2rem;
+  }
+  
+  .disabled {
+    pointer-events: none; 
+    display: none;
+  }
+  
+  .form-control-alert {
+    margin:0; 
+    text-align: center; 
+    color: red;
+  }
+  
+  ::ng-deep .left .dataTables_wrapper  {
+    margin-right: .8rem;
+  }
+  
+  ::ng-deep .right .dataTables_wrapper, .right h2 {
+    margin-left: .8rem;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .md-50 {
+      width: 98%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }

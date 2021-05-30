@@ -38,6 +38,10 @@ export class DeviceComponent implements OnDestroy, OnInit {
     this.router.navigateByUrl(`device/detail/${uid.toString()}`);
   }
 
+  Update(uid: number): void {
+    this.router.navigateByUrl(`device/update/${uid.toString()}`);
+  }
+
   AddDevice(): void {
     this.router.navigateByUrl('device/create');
   }

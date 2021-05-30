@@ -28,4 +28,8 @@ export class DetailDeviceComponent implements OnInit {
     this.router.navigateByUrl(`gateway/detail/${usn}`);
   }
 
+  UpdateDevice() {
+    this.router.navigateByUrl(`device/update/${this.device.uid.toString()}`);
+  }
+
 }

@@ -6,6 +6,8 @@ import { DetailDeviceComponent } from '../pages/detail-device/detail-device.comp
 import { DetailGatewayComponent } from '../pages/detail-gateway/detail-gateway.component';
 import { DeviceComponent } from '../pages/device/device.component';
 import { GatewayComponent } from '../pages/gateway/gateway.component';
+import { UpdateDeviceComponent } from '../pages/update-device/update-device.component';
+import { UpdateGatewayComponent } from '../pages/update-gateway/update-gateway.component';
 
 const routes: Routes = [
   { path: 'gateway', component: GatewayComponent },
@@ -13,7 +15,9 @@ const routes: Routes = [
   { path: 'gateway/create', component: CreateGatewayComponent },
   { path: 'device/create', component: CreateDeviceComponent },
   { path: 'gateway/detail/:usn', component: DetailGatewayComponent },
-  { path: 'device/detail/:uid', component:DetailDeviceComponent }
+  { path: 'device/detail/:uid', component:DetailDeviceComponent },
+  { path: 'gateway/update/:usn', component: UpdateGatewayComponent },
+  { path: 'device/update/:uid', component: UpdateDeviceComponent }
 ];
 
 @NgModule({

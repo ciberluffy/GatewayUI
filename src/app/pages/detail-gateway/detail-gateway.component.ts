@@ -33,4 +33,7 @@ export class DetailGatewayComponent implements OnInit {
     this.router.navigateByUrl(`device/detail/${uid.toString()}`);
   }
 
+  UpdateGateway() {
+    this.router.navigateByUrl(`gateway/update/${this.gateway.usn}`);
+  }
 }

@@ -38,6 +38,10 @@ export class GatewayComponent implements OnDestroy, OnInit {
     this.router.navigateByUrl(`gateway/detail/${usn}`);
   }
 
+  Update(usn: string): void {
+    this.router.navigateByUrl(`gateway/update/${usn}`);
+  }
+
   AddGateway(): void {
     this.router.navigateByUrl('gateway/create');
   }

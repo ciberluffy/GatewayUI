@@ -1,0 +1,79 @@
+<div class="title-datatable">
+    <h1>Update Device</h1>
+  
+    <div>
+      <button type="submit" (click)="onSubmit()" class="gateway-button top-button">Save</button>
+      <button type="submit" (click)="onBack()" class="gateway-button top-button ml-3">Back</button>
+    </div>
+</div>
+
+<form *ngIf="device != null" [formGroup]="deviceForm">
+    <div class="form-control">
+        <label>
+          UID:
+          <input type="text" [value]="device.uid" disabled />
+        </label>
+    </div>
+    <div class="form-control">
+        <label>
+          Vendor:
+          <input type="text" (change)="changeDo()" formControlName="vendor">
+          <div class="form-control-feedback invalid-feedback" *ngIf="deviceForm.controls.vendor.errors && changes">
+            <p *ngIf="deviceForm.controls.vendor.errors.required" class="form-control-alert">Vendor is required</p>
+          </div>
+        </label>
+    </div>
+    <div class="form-control">
+        <label>
+          Online:
+          <input type="checkbox" (change)="changeDo()" formControlName="online">
+        </label>
+    </div>
+    <div class="form-control">
+        <label>
+          Created:
+          <input type="date" (change)="changeDo()" formControlName="created">
+          <div class="form-control-feedback invalid-feedback" *ngIf="deviceForm.controls.created.errors && changes">
+            <p *ngIf="deviceForm.controls.created.errors.required" class="form-control-alert">Date of creation is required</p>
+          </div>
+        </label>
+    </div>
+
+    <div *ngIf="device.gateway != null">
+        <div class="form-control">
+            <label>
+              Gateway Name:
+              <input type="text" [disabled]="true" [value]="device.gateway.name">
+            </label>
+        </div>
+        <div class="form-control">
+            <label>
+              Gateway Address:
+              <input type="text" [disabled]="true" [value]="device.gateway.address">
+            </label>
+        </div>
+    </div>
+
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Devices</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let gateway of gateways">
+                <td>{{ gateway.name }}</td>
+                <td>{{ gateway.address }}</td>
+                <td>{{ gateway.devices.length }}</td>
+                <td>
+                    <button (click)="Select(gateway)" class="gateway-button options-button"><span class="material-icons">
+                        play_arrow
+                        </span></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

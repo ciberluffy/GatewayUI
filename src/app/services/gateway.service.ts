@@ -71,4 +71,19 @@ export class GatewayService {
           })
         );
   }
+
+  postUpdateGateway(gateway: Gateway): Observable<Gateway> {
+    return this.http.post<Gateway>(`${this.url}/update`, gateway)
+        .pipe(
+          catchError((err) => {
+            if (err.error instanceof Error) {
+              alert(`An error occurred: ${err.error.message}`);
+            } else {
+              alert(`Error Code ${err.status} \n Errors: ${JSON.stringify(err?.error?.errors ?? err?.error ?? err, null, 2)}`);
+            }
+
+            return new Observable<Gateway>();
+          })
+        );
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
@@ -10,24 +10,15 @@ import { DeviceService } from 'src/app/services/device.service';
 import { GatewayService } from 'src/app/services/gateway.service';
 
 @Component({
-  templateUrl: './create-gateway.component.html',
-  styleUrls: ['./create-gateway.component.css']
+  templateUrl: './update-gateway.component.html',
+  styleUrls: ['./update-gateway.component.css']
 })
-export class CreateGatewayComponent implements OnDestroy, OnInit {
+export class UpdateGatewayComponent implements  OnDestroy, OnInit {
   @ViewChildren(DataTableDirective)
   dtElements!: QueryList<DataTableDirective>;
 
-  gatewayForm = new FormGroup({
-    name: new FormControl('', 
-      Validators.required
-    ),
-    address: new FormControl('',  Validators.compose([
-      Validators.required,
-      Validators.pattern("((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)")
-    ])),
-  });
-
-  list1: Device[] = [];
+  gatewayForm!: FormGroup;
+  gateway!: Gateway;
   list2: Device[] = [];
 
   
@@ -39,7 +30,8 @@ export class CreateGatewayComponent implements OnDestroy, OnInit {
 
   constructor(private deviceService: DeviceService, 
               private gatewayService: GatewayService,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -56,13 +48,34 @@ export class CreateGatewayComponent implements OnDestroy, OnInit {
     };
     this.changes = false;
 
-    this.deviceService.getLonelyDevices()
-      .subscribe(data => {
-        this.list2 = data;
-        
-        this.dtTrigger1.next();
-        this.dtTrigger2.next();
-      });
+    this.route.params.subscribe((params: Params) => {
+      this.gatewayService.getGateway(params.usn)
+        .subscribe(data => {
+          this.gateway = data;
+
+          this.gatewayForm= new FormGroup({
+            name: new FormControl(this.gateway.name, 
+              Validators.required
+            ),
+            address: new FormControl(this.gateway.address,  Validators.compose([
+              Validators.required,
+              Validators.pattern("((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)")
+            ]))
+          });
+
+          setTimeout(() => {
+            this.dtTrigger1.next();
+          });
+
+          this.deviceService.getLonelyDevices()
+            .subscribe(data => {
+              this.list2 = data;
+              setTimeout(() => {
+                this.dtTrigger2.next();
+              });
+            });
+        });
+    });
   }
 
   rerender(): void {
@@ -85,17 +98,17 @@ export class CreateGatewayComponent implements OnDestroy, OnInit {
   }
 
   moveToList2(uid: number): void{
-    let device = this.list1.find(d => d.uid === uid) as Device;
+    let device = this.gateway.devices.find(d => d.uid === uid) as Device;
     this.list2.push(device);
-    this.list1.splice(this.list1.indexOf(device),1);
+    this.gateway.devices.splice(this.gateway.devices.indexOf(device),1);
     
     this.rerender();
   }
 
   moveToList1(uid: number): void{
-    if(this.list1.length < 10) {
+    if(this.gateway.devices.length < 10) {
       let device = this.list2.find(d => d.uid === uid) as Device;
-      this.list1.push(device);
+      this.gateway.devices.push(device);
       this.list2.splice(this.list2.indexOf(device),1);
       
       this.rerender();
@@ -108,13 +121,12 @@ export class CreateGatewayComponent implements OnDestroy, OnInit {
       let gateway: Gateway = {
         name: this.gatewayForm.controls["name"].value as string,
         address: this.gatewayForm.controls["address"].value as string,
-        usn: '',
-        devices: this.list1
+        usn: this.gateway.usn,
+        devices: this.gateway.devices
       };
-
-      this.gatewayService.postGateway(gateway)
+      
+      this.gatewayService.postUpdateGateway(gateway)
         .subscribe(data => {
-          console.log(data);
           this.router.navigateByUrl('/');
         });
     }

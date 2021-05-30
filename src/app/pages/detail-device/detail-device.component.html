@@ -1,5 +1,8 @@
 <div *ngIf="device != null">
-    <h1>Device Details</h1>
+    <div class="title-datatable">
+        <h1>Device Details</h1>
+        <button (click)="UpdateDevice()" class="gateway-button top-button">Update</button>
+    </div>
 
     <div class="form-control">
         <label>
