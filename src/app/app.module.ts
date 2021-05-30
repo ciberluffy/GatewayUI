@@ -4,13 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { DetailGatewayComponent } from './pages/detail-gateway/detail-gateway.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
-    DetailGatewayComponent
+    AdminLayoutComponent
   ],
   imports: [
     BrowserModule,

@@ -42,6 +42,21 @@ export class DeviceService {
     );
   }
 
+  getDevice(uid: number): Observable<Device> {
+    return this.http.get<Device>(`${this.url}/${uid.toString()}`)
+    .pipe(
+      catchError((err) => {
+        if (err.error instanceof Error) {
+          alert(`An error occurred: ${err.error.message}`);
+        } else {
+          alert(`Error Code ${err.status} \n Errors: ${JSON.stringify(err?.error?.errors ?? err?.error ?? err, null, 2)}`);
+        }
+
+        return new Observable<Device>();
+      })
+    );
+  }
+
   postDevice(device: Device): Observable<Device> {
     return this.http.post<Device>(`${this.url}/create`, device)
     .pipe(

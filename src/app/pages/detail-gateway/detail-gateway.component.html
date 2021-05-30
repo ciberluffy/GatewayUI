@@ -1,1 +1,51 @@
-<p>detail-gateway works!</p>
+<div *ngIf="gateway != null">
+    <h1>Gateway Details</h1>
+
+    <div class="form-control">
+        <label>
+            Name:
+            <input type="text" [value]="gateway.name" disabled />
+        </label>
+    </div>
+    <div class="form-control">
+        <label>
+            IPv4 Address:
+        <input type="ipaddress" [value]="gateway.address" disabled />
+        </label>    
+    </div>
+
+    <h3>Devices:</h3>
+    <table datatable [dtOptions]="dtOptions" class="row-border hover">
+        <thead>
+          <tr>
+            <th>UID</th>
+            <th>Vendor</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let device of gateway.devices">
+            <td>{{ device.uid }}</td>
+            <td>{{ device.vendor }}</td>
+            <td>{{ device.created | date }}</td>
+            <td>
+                <span *ngIf="device.online" class="material-icons bc-green">
+                    check_circle_outline
+                </span>
+                <span *ngIf="!device.online" class="material-icons">
+                    highlight_off
+                </span>
+            </td>
+            <td>
+              <button (click)="DetailsDevice(device.uid)" class="gateway-button options-button">
+                <span class="material-icons">
+                  remove_red_eye
+                </span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+</div>

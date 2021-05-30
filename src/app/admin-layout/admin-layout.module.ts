@@ -9,6 +9,8 @@ import { DeviceComponent } from '../pages/device/device.component';
 import { CreateGatewayComponent } from '../pages/create-gateway/create-gateway.component';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { CreateDeviceComponent } from '../pages/create-device/create-device.component';
+import { DetailGatewayComponent } from '../pages/detail-gateway/detail-gateway.component';
+import { DetailDeviceComponent } from '../pages/detail-device/detail-device.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { CreateDeviceComponent } from '../pages/create-device/create-device.comp
     GatewayComponent,
     DeviceComponent,
     CreateGatewayComponent,
-    CreateDeviceComponent
+    CreateDeviceComponent,
+    DetailGatewayComponent,
+    DetailDeviceComponent
   ],
   imports: [
     CommonModule,

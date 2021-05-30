@@ -1,0 +1,55 @@
+<div *ngIf="device != null">
+    <h1>Device Details</h1>
+
+    <div class="form-control">
+        <label>
+            UID:
+            <input type="text" [value]="device.uid" disabled />
+        </label>
+    </div>
+    <div class="form-control">
+        <label>
+            Vendor:
+            <input type="text" [value]="device.vendor" disabled />
+        </label>    
+    </div>
+    <div class="form-control">
+        <label class="vertical-align-top">
+            Online:
+        </label>
+        <span *ngIf="device.online" class="material-icons bc-green mr-3">
+            check_circle_outline
+        </span>
+        <span *ngIf="!device.online" class="material-icons mr-3">
+            highlight_off
+        </span>
+    </div>
+    <div class="form-control">
+        <label>
+            Created Date:
+            <input type="text" [value]="device.created.split('T')[0]" disabled />
+        </label>    
+    </div>
+</div>
+
+<div *ngIf="device != null && device.gateway != null">
+    <h3>Attached to Gateway</h3>
+
+    <div class="form-control">
+        <label>
+            Name:
+            <input type="text" [value]="device.gateway.name" disabled />
+        </label>
+    </div>
+    <div class="form-control">
+        <label>
+            IPv4 Address:
+        <input type="ipaddress" [value]="device.gateway.address" disabled />
+        </label>    
+    </div>
+    <button (click)="DetailsGateway(device.gateway.usn)" class="gateway-button options-button">
+        <span class="material-icons">
+          remove_red_eye
+        </span>
+    </button>
+</div>

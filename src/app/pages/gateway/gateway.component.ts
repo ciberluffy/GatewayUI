@@ -35,7 +35,7 @@ export class GatewayComponent implements OnDestroy, OnInit {
   }
 
   Details(usn: string): void {
-    console.log(usn);
+    this.router.navigateByUrl(`gateway/detail/${usn}`);
   }
 
   AddGateway(): void {

@@ -34,8 +34,8 @@ export class DeviceComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-  Details(usn: number): void {
-    console.log(usn);
+  Details(uid: number): void {
+    this.router.navigateByUrl(`device/detail/${uid.toString()}`);
   }
 
   AddDevice(): void {
